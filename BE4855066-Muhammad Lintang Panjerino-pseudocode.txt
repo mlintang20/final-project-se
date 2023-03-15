@@ -1,0 +1,65 @@
+PROGRAM OrderMakananMinumanOnline
+
+START
+
+IF "aplikasi" NOT INSTALLED
+    DO "download_aplikasi"
+    DO "install_aplikasi"
+DO "open_aplikasi"
+
+IF "akun" IS NOT TRUE
+    DO "signup"
+    DO "verification"
+
+IF "login" IS NOT TRUE
+    READ AND WRITE "no_telp" with number
+    WHILE "no_telp" IS NOT TRUE
+        STORE "no_telp" with "my_no_telp"
+    READ AND WRITE "otp" with number
+    WHILE "otp" IS NOT TRUE
+        STORE "otp" with "my_otp"
+DISPLAY "aplikasi"
+
+READ AND WRITE "layanan" with string
+STORE "layanan" with "food"
+
+READ AND WRITE "alamat" with string
+STORE "alamat" with "my_alamat"
+
+READ AND WRITE "restoran" with string
+STORE "restoran" with "nama_restoran"
+
+READ AND WRITE "makanan" with string
+READ AND WRITE "minuman" with string
+READ AND WRITE "hrg_makanan" with number
+READ AND WRITE "hrg_minuman" with number
+READ AND WRITE "jml_makanan" with number
+READ AND WRITE "jml_minuman" with number
+WHILE "makanan" AND "minuman" AND "jml_makanan" AND "jml_minuman" IS NOT TRUE
+    STORE "makanan" with "nama_makanan"
+    STORE "minuman" with "nama_minuman"
+    STORE "hrg_makanan" with "harga_makanan"
+    STORE "hrg_minuman" with "harga_minuman"
+    STORE "jml_makanan" with "jumlah_makanan"
+    STORE "jml_minuman" with "jumlah_minuman"
+
+READ AND WRITE "biaya_makanan" with number
+READ AND WRITE "biaya_minuman" with number
+READ AND WRITE "total_biaya" with number
+STORE "biaya_makanan" with "jml_makanan" times "hrg_makanan"
+STORE "biaya_minuman" with "jml_minuman" times "hrg_minuman"
+STORE "total_biaya" with "biaya_makanan" plus "biaya_minuman"
+
+IF "metode_bayar" IS "e-wallet"
+    WHILE "saldo" < "total_biaya"
+        INCREMENT "saldo"
+    DO "pesan dan bayar"
+    IF "makanan" AND "minuman" HAVE ARRIVED
+        DO "terima_pesanan"
+ELSE IF "metode_bayar" IS "tunai"
+    DO "pesan"
+    IF "makanan" AND "minuman" HAVE ARRIVED
+        DO "bayar"
+        DO "terima_pesanan"
+
+END
